@@ -1,0 +1,350 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Datenschutzerklärung — Mioya</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0f0e0c;
+      --surface: #1a1816;
+      --surface-warm: #1c1914;
+      --fg: #ede7db;
+      --fg-dim: #c4baa8;
+      --muted: #8a8070;
+      --border: #2e2a24;
+      --accent: #c8956c;
+      --accent-light: #d4a882;
+      --accent-dark: #a67548;
+      --font-display: 'Playfair Display', Georgia, serif;
+      --font-body: 'Lato', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--fg);
+      font-size: 17px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      padding: 0 2.5rem;
+      height: 76px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(15, 14, 12, 0.94);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: var(--font-display);
+      font-size: 1.85rem;
+      font-weight: 400;
+      color: var(--fg);
+      text-decoration: none;
+      letter-spacing: 0.1em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.8rem;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: var(--fg-dim);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 400;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      transition: color 0.25s;
+    }
+
+    .nav-links a:hover { color: var(--accent-light); }
+
+    .nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: 8px; z-index: 1001; }
+    .nav-close { display: none; }
+
+    .nav-toggle span {
+      display: block;
+      width: 26px;
+      height: 2px;
+      background: var(--fg);
+      margin: 6px 0;
+      transition: all 0.3s;
+    }
+
+    .page-header {
+      padding-top: 120px;
+      padding-bottom: 2rem;
+      max-width: 880px;
+      margin: 0 auto;
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+
+    .page-header h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.2rem, 5vw, 3rem);
+      font-weight: 400;
+      color: var(--fg);
+      margin-bottom: 0.5rem;
+    }
+
+    .page-header .updated {
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    .content {
+      max-width: 880px;
+      margin: 0 auto;
+      padding: 3rem 2rem 5rem;
+    }
+
+    .content h2 {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 400;
+      color: var(--accent-light);
+      margin: 2.5rem 0 1rem;
+      font-style: italic;
+    }
+
+    .content p {
+      margin-bottom: 1rem;
+      color: var(--fg-dim);
+      line-height: 1.8;
+    }
+
+    .content ul {
+      margin: 0.75rem 0 1.25rem 1.5rem;
+      color: var(--fg-dim);
+    }
+
+    .content li {
+      margin-bottom: 0.5rem;
+      line-height: 1.7;
+    }
+
+    .content strong {
+      color: var(--fg);
+    }
+
+    .content a {
+      color: var(--accent-light);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .content a:hover { color: var(--accent); }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 3rem 2rem;
+      text-align: center;
+      background: var(--surface);
+    }
+
+    footer p {
+      font-size: 0.88rem;
+      color: var(--muted);
+      margin-bottom: 0.45rem;
+    }
+
+    .legal-links {
+      margin-top: 1.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .legal-links a {
+      color: var(--muted);
+      font-size: 0.78rem;
+      margin: 0 1.2rem;
+      text-decoration: none;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    .legal-links a:hover { color: var(--fg-dim); }
+
+    @media (max-width: 768px) {
+      body { font-size: 16px; }
+      nav { padding: 0 1.5rem; height: 68px; }
+
+      .nav-links {
+        display: none;
+        position: fixed;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: rgba(15, 14, 12, 0.98);
+        backdrop-filter: blur(20px);
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 2rem;
+        gap: 2rem;
+        z-index: 1000;
+      }
+
+      .nav-links.open { display: flex; }
+      .nav-links a { font-size: 1.15rem; letter-spacing: 0.1em; }
+      .nav-toggle { display: block; }
+
+      .nav-close {
+        position: absolute;
+        top: 1.5rem;
+        right: 1.5rem;
+        background: none;
+        border: none;
+        color: var(--fg);
+        font-size: 2rem;
+        cursor: pointer;
+        padding: 0.5rem;
+        line-height: 1;
+        font-family: var(--font-body);
+        display: block !important;
+      }
+
+      .page-header { padding-top: 100px; }
+      .content { padding: 2rem 1.5rem 4rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-logo">Mioya</a>
+    <button class="nav-toggle" onclick="toggleNav()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-links" id="navLinks">
+      <button class="nav-close" onclick="toggleNav()" aria-label="Close">&times;</button>
+      <a href="index.html" onclick="closeNav()">Home</a>
+      <a href="index.html#kontakt" onclick="closeNav()">Kontakt</a>
+    </div>
+  </nav>
+
+  <div class="page-header">
+    <h1>Datenschutzerklärung</h1>
+    <p class="updated">Zuletzt aktualisiert: Mai 2025</p>
+  </div>
+
+  <div class="content">
+    <h2>1. Verantwortlicher</h2>
+    <p>Verantwortlicher im Sinne der Datenschutz-Grundverordnung (DSGVO) und anderer nationaler Datenschutzgesetze ist:</p>
+    <p><strong>Mioya GmbH</strong><br>
+    Gumpendorfer Straße 29<br>
+    1060 Wien<br>
+    E-Mail: <a href="mailto:hello@mioya.at">hello@mioya.at</a><br>
+    Telefon: +43 1 586 36 73</p>
+
+    <h2>2. Allgemeines zur Datenverarbeitung</h2>
+    <p>Wir verarbeiten personenbezogene Daten unserer Nutzer grundsätzlich nur, soweit dies zur Bereitstellung einer funktionsfähigen Website sowie unserer Inhalte und Leistungen erforderlich ist. Die Verarbeitung personenbezogener Daten unserer Nutzer erfolgt regelmäßig nur nach Einwilligung des Nutzers. Eine Ausnahme gilt in solchen Fällen, in denen eine vorherige Einholung einer Einwilligung aus tatsächlichen Gründen nicht möglich ist und die Verarbeitung der Daten durch gesetzliche Vorschriften gestattet ist.</p>
+
+    <h2>3. Rechtsgrundlage</h2>
+    <p>Soweit wir für Verarbeitungsvorgänge personenbezogener Daten eine Einwilligung der betroffenen Person einholen, dient Art. 6 Abs. 1 lit. a DSGVO als Rechtsgrundlage. Bei der Verarbeitung personenbezogener Daten, die zur Erfüllung eines Vertrages erforderlich ist, dient Art. 6 Abs. 1 lit. b DSGVO als Rechtsgrundlage. Für den Fall, dass lebenswichtige Interessen der betroffenen Person die Verarbeitung personenbezogener Daten erforderlich machen, dient Art. 6 Abs. 1 lit. d DSGVO als Rechtsgrundlage. Ist die Verarbeitung zur Wahrung eines berechtigten Interesses unseres Unternehmens erforderlich, dient Art. 6 Abs. 1 lit. f DSGVO als Rechtsgrundlage.</p>
+
+    <h2>4. Erhebung und Speicherung personenbezogener Daten</h2>
+
+    <p><strong>a) Beim Besuch der Website</strong></p>
+    <p>Beim Aufrufen unserer Website werden durch den auf Ihrem Endgerät zum Einsatz kommenden Browser automatisch Informationen an den Server unserer Website gesendet. Diese Informationen werden temporär in einem sogenannten Logfile gespeichert. Folgende Informationen werden dabei ohne Ihr Zutun erfasst und bis zur automatisierten Löschung gespeichert:</p>
+    <ul>
+      <li>IP-Adresse des anfragenden Rechners</li>
+      <li>Datum und Uhrzeit des Zugriffs</li>
+      <li>Name und URL der abgerufenen Datei</li>
+      <li>Website, von der aus der Zugriff erfolgt (Referrer-URL)</li>
+      <li>Verwendeter Browser und ggf. das Betriebssystem Ihres Rechners</li>
+      <li>Name des Access-Providers</li>
+    </ul>
+    <p>Die genannten Daten werden zu folgenden Zwecken verarbeitet: Gewährleistung eines reibungslosen Verbindungsaufbaus der Website, Gewährleistung einer komfortablen Nutzung unserer Website, Auswertung der Systemsicherheit und -stabilität.</p>
+    <p>Die Rechtsgrundlage für die Datenverarbeitung ist Art. 6 Abs. 1 lit. f DSGVO.</p>
+
+    <p><strong>b) Bei Kontaktaufnahme per E-Mail</strong></p>
+    <p>Wenn Sie uns per E-Mail kontaktieren, werden die von Ihnen mitgeteilten Daten (Ihre E-Mail-Adresse, ggf. Ihr Name und der Inhalt Ihrer Nachricht) von uns gespeichert, um Ihre Anfrage zu beantworten. Die in diesem Zusammenhang anfallenden Daten löschen wir, nachdem die Speicherung nicht mehr erforderlich ist, oder schränken die Verarbeitung ein, falls gesetzliche Aufbewahrungsfristen bestehen.</p>
+
+    <p><strong>c) Bei Reservierung</strong></p>
+    <p>Für eine Tischreservierung erfassen wir Ihren Namen, die Telefonnummer, die Anzahl der Personen sowie den gewünschten Datum- und Zeitraum. Diese Daten dienen ausschließlich der Bearbeitung Ihrer Reservierung und werden nach Abschluss des Restaurantbesuchs gelöscht, sofern keine gesetzlichen Aufbewahrungspflichten bestehen.</p>
+
+    <h2>5. Weitergabe von Daten</h2>
+    <p>Eine Übermittlung Ihrer persönlichen Daten an Dritte zu anderen als den im Folgenden aufgeführten Zwecken findet nicht statt. Wir geben Ihre persönlichen Daten nur an Dritte weiter, wenn:</p>
+    <ul>
+      <li>Sie Ihre ausdrückliche Einwilligung dazu erteilt haben (Art. 6 Abs. 1 lit. a DSGVO),</li>
+      <li>die Weitergabe zur Geltendmachung, Ausübung oder Verteidigung von Rechtsansprüchen erforderlich ist und kein Grund zur Annahme besteht, dass Sie ein überwiegendes schutzwürdiges Interesse an der Nichtweitergabe Ihrer Daten haben (Art. 6 Abs. 1 lit. f DSGVO),</li>
+      <li>eine gesetzliche Verpflichtung besteht (Art. 6 Abs. 1 lit. c DSGVO),</li>
+      <li>dies gesetzlich zulässig und für die Abwicklung von Vertragsverhältnissen mit Ihnen erforderlich ist (Art. 6 Abs. 1 lit. b DSGVO).</li>
+    </ul>
+
+    <h2>6. Einsatz von Google Analytics</h2>
+    <p>Diese Website nutzt Google Analytics, einen Webanalysedienst der Google LLC, 1600 Amphitheatre Parkway, Mountain View, CA 94043, USA („Google"). Die Nutzung umfasst die Betriebsart „Universal Analytics" und „Google Analytics 4". Google Analytics verwendet Cookies, die eine Analyse der Benutzung der Website durch Sie ermöglichen. Die durch das Cookie erzeugten Informationen über Ihre Benutzung dieser Website werden in der Regel an einen Server von Google in den USA übertragen und dort gespeichert.</p>
+    <p>Weitere Informationen zur Datenverarbeitung durch Google und zu Ihren entsprechenden Einstellungsmöglichkeiten finden Sie in der <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Datenschutzerklärung von Google</a>.</p>
+    <p>Die Rechtsgrundlage für die Datenverarbeitung ist Art. 6 Abs. 1 lit. f DSGVO.</p>
+
+    <h2>7. Einsatz von Google Fonts</h2>
+    <p>Auf dieser Website werden externe Schriften (Google Fonts) des Anbieters Google LLC verwendet. Beim Aufruf einer Seite lädt Ihr Browser die benötigten Fonts in Ihren Browsercache, um Texte und Schriftarten korrekt anzuzeigen. Zu diesem Zweck muss der von Ihnen verwendete Browser Verbindung zu den Servern von Google aufnehmen. Hierdurch erlangt Google Kenntnis darüber, dass über Ihre IP-Adresse unsere Website aufgerufen wurde.</p>
+    <p>Die Rechtsgrundlage für die Datenverarbeitung ist Art. 6 Abs. 1 lit. f DSGVO.</p>
+
+    <h2>8. Ihre Rechte</h2>
+    <p>Sie haben gegenüber uns folgende Rechte hinsichtlich der Sie betreffenden personenbezogenen Daten:</p>
+    <ul>
+      <li><strong>Recht auf Auskunft</strong> (Art. 15 DSGVO)</li>
+      <li><strong>Recht auf Berichtigung</strong> (Art. 16 DSGVO)</li>
+      <li><strong>Recht auf Löschung</strong> (Art. 17 DSGVO)</li>
+      <li><strong>Recht auf Einschränkung der Verarbeitung</strong> (Art. 18 DSGVO)</li>
+      <li><strong>Recht auf Datenübertragbarkeit</strong> (Art. 20 DSGVO)</li>
+      <li><strong>Widerspruchsrecht</strong> (Art. 21 DSGVO)</li>
+    </ul>
+    <p>Sie haben zudem das Recht, sich bei einer Datenschutz-Aufsichtsbehörde über die Verarbeitung Ihrer personenbezogenen Daten durch uns zu beschweren.</p>
+
+    <h2>9. Datensicherheit</h2>
+    <p>Wir verwenden innerhalb des Webseiten-Besuchs das verbreitete SSL-Verfahren (Secure Socket Layer) in Verbindung mit der jeweils höchsten Verschlüsselungsstufe, die von Ihrem Browser unterstützt wird. Ob eine einzelne Seite unseres Internetauftrittes verschlüsselt übertragen wird, erkennen Sie an der geschlossenen Darstellung des Schüssel- beziehungsweise Schloss-Symbols in der Statusleiste Ihres Browsers.</p>
+
+    <h2>10. Aufbewahrungsdauer</h2>
+    <p>Kriterien für die Aufbewahrungsdauer sind die jeweiligen gesetzlichen Aufbewahrungsfristen. Nach Ablauf der Frist werden die entsprechenden Daten routinemäßig gelöscht, sofern sie nicht mehr zur Vertragserfüllung oder Vertragsanbahnung erforderlich sind.</p>
+
+    <h2>11. Änderungen der Datenschutzerklärung</h2>
+    <p>Wir behalten uns das Recht vor, diese Datenschutzerklärung jederzeit zu ändern. Die aktuellste Version ist stets auf unserer Website verfügbar. Wir empfehlen Ihnen, diese Erklärung regelmäßig zu überprüfen.</p>
+
+    <h2>12. Kontakt</h2>
+    <p>Wenn Sie Fragen zum Datenschutz haben, schreiben Sie uns eine E-Mail oder wenden Sie sich direkt an die im Impressum genannte verantwortliche Person:</p>
+    <p><strong>Mioya GmbH</strong><br>
+    Gumpendorfer Straße 29<br>
+    1060 Wien<br>
+    E-Mail: <a href="mailto:hello@mioya.at">hello@mioya.at</a><br>
+    Telefon: +43 1 586 36 73</p>
+  </div>
+
+  <footer>
+    <p>Ein Betrieb der Mioya GmbH</p>
+    <p>Gumpendorfer Straße 29, 1060 Wien</p>
+    <div class="legal-links">
+      <a href="cookie-policy.html">Cookie-Richtlinie</a>
+      <a href="#">Impressum</a>
+      <a href="privacy-policy.html">Datenschutz</a>
+    </div>
+  </footer>
+
+  <script>
+    function toggleNav() {
+      document.getElementById('navLinks').classList.toggle('open');
+    }
+    function closeNav() {
+      document.getElementById('navLinks').classList.remove('open');
+    }
+  </script>
+</body>
+</html>

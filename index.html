@@ -1,0 +1,1360 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mioya — Restaurant & Bar</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0f0e0c;
+      --surface: #1a1816;
+      --surface-warm: #1c1914;
+      --surface-deep: #141210;
+      --surface-accent: #1a150f;
+      --surface-light: #f5f0e8;
+      --surface-light-alt: #ebe4d8;
+      --fg: #ede7db;
+      --fg-dim: #c4baa8;
+      --fg-light: #2a2418;
+      --fg-light-dim: #5a5040;
+      --muted: #8a8070;
+      --muted-light: #8a7e6c;
+      --border: #2e2a24;
+      --border-light: #d4cbb8;
+      --accent: #c8956c;
+      --accent-light: #d4a882;
+      --accent-dark: #a67548;
+      --font-display: 'Playfair Display', Georgia, serif;
+      --font-body: 'Lato', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-padding-top: 80px; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--fg);
+      font-size: 17px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ---- Navigation ---- */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      padding: 0 2.5rem;
+      height: 76px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background 0.4s, backdrop-filter 0.4s;
+    }
+
+    nav.scrolled {
+      background: rgba(15, 14, 12, 0.94);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: var(--font-display);
+      font-size: 1.85rem;
+      font-weight: 400;
+      color: var(--fg);
+      text-decoration: none;
+      letter-spacing: 0.1em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.8rem;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: var(--fg-dim);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 400;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      transition: color 0.25s;
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px; left: 0;
+      width: 0; height: 1px;
+      background: var(--accent);
+      transition: width 0.3s;
+    }
+
+    .nav-links a:hover { color: var(--accent-light); }
+    .nav-links a:hover::after { width: 100%; }
+
+    .nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: 8px; z-index: 1001; }
+    .nav-close { display: none; }
+
+    .nav-toggle span {
+      display: block;
+      width: 26px;
+      height: 2px;
+      background: var(--fg);
+      margin: 6px 0;
+      transition: all 0.3s;
+    }
+
+    /* ---- Hero ---- */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: url('mp43yvcp-still-life-white-tuna-recipe_52683-153803_1_.jpg') center/cover no-repeat;
+      transform: scale(1.05);
+      transition: transform 0.1s linear;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(15, 14, 12, 0.3) 0%,
+        rgba(15, 14, 12, 0.45) 35%,
+        rgba(15, 14, 12, 0.7) 65%,
+        rgba(15, 14, 12, 0.95) 100%
+      );
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 0 2rem;
+    }
+
+    .hero-content h1 {
+      font-family: var(--font-display);
+      font-size: clamp(4rem, 14vw, 9rem);
+      font-weight: 400;
+      color: var(--fg);
+      letter-spacing: 0.18em;
+      margin-bottom: 0.75rem;
+      line-height: 1;
+    }
+
+    .hero-tagline {
+      font-size: 1.15rem;
+      color: var(--fg-dim);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-weight: 300;
+      margin-bottom: 2.8rem;
+    }
+
+    .hero-tagline::before, .hero-tagline::after {
+      content: '\2014';
+      margin: 0 0.75rem;
+      color: var(--accent);
+    }
+
+    .cta-button {
+      display: inline-block;
+      border: 1px solid var(--accent);
+      color: var(--accent-light);
+      padding: 1rem 2.8rem;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      transition: all 0.3s;
+      font-family: var(--font-body);
+    }
+
+    .cta-button:hover {
+      background: var(--accent);
+      color: var(--bg);
+    }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--muted);
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      animation: float 2.5s ease-in-out infinite;
+    }
+
+    .scroll-hint svg { width: 22px; height: 22px; stroke: var(--muted); fill: none; stroke-width: 1.5; }
+
+    @keyframes float {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(8px); }
+    }
+
+    /* ---- Photo banners ---- */
+    .photo-banner {
+      position: relative;
+      height: 340px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .photo-banner img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .photo-banner .banner-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(15, 14, 12, 0.55);
+    }
+
+    .photo-banner .banner-text {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      color: var(--fg);
+    }
+
+    .photo-banner .banner-text h3 {
+      font-family: var(--font-display);
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      font-weight: 400;
+      font-style: italic;
+      letter-spacing: 0.06em;
+    }
+
+    .photo-banner .banner-text span {
+      display: block;
+      font-size: 0.78rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent-light);
+      margin-top: 0.5rem;
+    }
+
+    /* ---- Sections (dark) ---- */
+    section {
+      padding: 5rem 2rem;
+      max-width: 880px;
+      margin: 0 auto;
+    }
+
+    .section-dark {
+      background: var(--bg);
+      color: var(--fg);
+    }
+
+    .section-warm {
+      background: var(--surface-warm);
+      color: var(--fg);
+    }
+
+    .section-deep {
+      background: var(--surface-deep);
+      color: var(--fg);
+    }
+
+    .section-accent {
+      background: var(--surface-accent);
+      color: var(--fg);
+    }
+
+    .section-light {
+      background: var(--surface-light);
+      color: var(--fg-light);
+    }
+
+    .section-light-alt {
+      background: var(--surface-light-alt);
+      color: var(--fg-light);
+    }
+
+    .section-label {
+      font-family: var(--font-body);
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+    }
+
+    .section-light .section-label { color: var(--accent-dark); }
+    .section-light-alt .section-label { color: var(--accent-dark); }
+
+    section h2 {
+      font-family: var(--font-display);
+      font-size: clamp(2.2rem, 5vw, 3rem);
+      font-weight: 400;
+      color: var(--fg);
+      margin-bottom: 2.5rem;
+      line-height: 1.2;
+    }
+
+    .section-light section h2,
+    .section-light h2 { color: var(--fg-light); }
+    .section-light-alt section h2,
+    .section-light-alt h2 { color: var(--fg-light); }
+
+    section h3 {
+      font-family: var(--font-display);
+      font-size: 1.45rem;
+      font-weight: 400;
+      margin: 2.5rem 0 1.2rem;
+      color: var(--accent-light);
+      font-style: italic;
+    }
+
+    .section-light section h3,
+    .section-light h3 { color: var(--accent-dark); }
+    .section-light-alt section h3,
+    .section-light-alt h3 { color: var(--accent-dark); }
+
+    /* ---- Menu items ---- */
+    .menu-category { margin-bottom: 2rem; }
+
+    .menu-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 1.1rem 0;
+      border-bottom: 1px solid rgba(46, 42, 36, 0.6);
+      gap: 1.5rem;
+    }
+
+    .section-light .menu-item,
+    .section-light-alt .menu-item {
+      border-bottom-color: var(--border-light);
+    }
+
+    .menu-item:last-child { border-bottom: none; }
+
+    .menu-item .name {
+      font-weight: 700;
+      font-size: 1.05rem;
+      letter-spacing: 0.04em;
+    }
+
+    .section-light .menu-item .name,
+    .section-light-alt .menu-item .name { color: var(--fg-light); }
+
+    .menu-item .description {
+      font-size: 0.95rem;
+      color: var(--muted);
+      display: block;
+      margin-top: 0.35rem;
+      line-height: 1.55;
+    }
+
+    .section-light .menu-item .description,
+    .section-light-alt .menu-item .description { color: var(--fg-light-dim); }
+
+    .menu-item .price {
+      font-weight: 300;
+      white-space: nowrap;
+      margin-left: 1.5rem;
+      color: var(--accent-light);
+      font-size: 1.1rem;
+      font-style: italic;
+      font-family: var(--font-display);
+    }
+
+    .section-light .menu-item .price,
+    .section-light-alt .menu-item .price { color: var(--accent-dark); }
+
+    .menu-note {
+      font-size: 0.95rem;
+      color: var(--muted);
+      font-style: italic;
+      margin-top: 0.6rem;
+      line-height: 1.65;
+    }
+
+    .section-light .menu-note,
+    .section-light-alt .menu-note { color: var(--fg-light-dim); }
+
+    /* ---- Info blocks ---- */
+    .info-block {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 2.25rem 2.5rem;
+      margin: 1.5rem 0;
+    }
+
+    .section-light .info-block,
+    .section-light-alt .info-block {
+      background: rgba(255,255,255,0.6);
+      border-color: var(--border-light);
+    }
+
+    .info-block h3 {
+      margin-top: 0;
+      color: var(--fg);
+      font-style: normal;
+      font-size: 1.35rem;
+    }
+
+    .section-light .info-block h3,
+    .section-light-alt .info-block h3 { color: var(--fg-light); }
+
+    .info-block p {
+      margin-bottom: 0.55rem;
+      font-size: 1rem;
+      color: var(--fg-dim);
+    }
+
+    .section-light .info-block p,
+    .section-light-alt .info-block p { color: var(--fg-light-dim); }
+
+    .info-block .highlight {
+      color: var(--accent-light);
+      font-weight: 700;
+    }
+
+    .section-light .info-block .highlight,
+    .section-light-alt .info-block .highlight { color: var(--accent-dark); }
+
+    /* ---- Info grid ---- */
+    .info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .info-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 2.25rem;
+    }
+
+    .info-card h3 {
+      margin-top: 0;
+      font-style: normal;
+      font-size: 1.25rem;
+      color: var(--accent-light);
+      margin-bottom: 1.2rem;
+    }
+
+    .info-card p {
+      font-size: 1rem;
+      color: var(--fg-dim);
+      margin-bottom: 0.5rem;
+    }
+
+    .info-card .note {
+      color: var(--muted);
+      font-style: italic;
+      font-size: 0.92rem;
+    }
+
+    .info-card .accent-val {
+      color: var(--accent-light);
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+
+    .info-card-full { grid-column: 1 / -1; }
+
+    /* ---- Wagyu ---- */
+    .wagyu-header {
+      text-align: center;
+      padding: 1rem 0 2.5rem;
+    }
+
+    .wagyu-header .price-tag {
+      font-family: var(--font-display);
+      font-size: 1.75rem;
+      color: var(--accent);
+      font-style: italic;
+    }
+
+    .wagyu-course {
+      padding: 1.75rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .wagyu-course:last-of-type { border-bottom: none; }
+
+    .wagyu-course .course-num {
+      font-family: var(--font-display);
+      font-size: 2.2rem;
+      color: var(--accent-dark);
+      font-style: italic;
+      margin-bottom: 0.3rem;
+    }
+
+    .wagyu-course .name {
+      font-weight: 700;
+      font-size: 1.15rem;
+      letter-spacing: 0.04em;
+      margin-bottom: 0.4rem;
+    }
+
+    .wagyu-course .description {
+      font-size: 1rem;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    /* ---- Contact ---- */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+
+    .contact-item {
+      text-align: center;
+      padding: 2.25rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+    }
+
+    .contact-item .label {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--muted);
+      margin-bottom: 0.85rem;
+    }
+
+    .contact-item .value {
+      font-size: 1.1rem;
+      color: var(--fg-dim);
+    }
+
+    .contact-item a {
+      color: var(--accent-light);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .contact-item a:hover { color: var(--accent); }
+
+    /* ---- Footer ---- */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 4rem 2rem 3rem;
+      text-align: center;
+      background: var(--surface);
+    }
+
+    .footer-brand {
+      font-family: var(--font-display);
+      font-size: 1.85rem;
+      font-weight: 400;
+      letter-spacing: 0.14em;
+      color: var(--fg);
+      margin-bottom: 1.5rem;
+    }
+
+    .footer-message {
+      font-size: 1.1rem;
+      color: var(--fg-dim);
+      margin-bottom: 2rem;
+      font-style: italic;
+      font-family: var(--font-display);
+    }
+
+    .footer-details {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    footer p {
+      font-size: 0.88rem;
+      color: var(--muted);
+      margin-bottom: 0.45rem;
+      line-height: 1.65;
+    }
+
+    .legal-links {
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .legal-links a {
+      color: var(--muted);
+      font-size: 0.78rem;
+      margin: 0 1.2rem;
+      text-decoration: none;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    .legal-links a:hover { color: var(--fg-dim); }
+
+    /* ---- Mobile overlay ---- */
+    .nav-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      z-index: 999;
+    }
+
+    .nav-overlay.active { display: block; }
+
+    /* ---- Full-width section wrapper ---- */
+    .fw-section {
+      width: 100%;
+    }
+
+    .fw-section > section,
+    .fw-section > .section-inner {
+      max-width: 880px;
+      margin: 0 auto;
+      padding: 5rem 2rem;
+    }
+
+    /* ---- Responsive ---- */
+    @media (max-width: 900px) {
+      .info-grid { grid-template-columns: 1fr; }
+      .contact-grid { grid-template-columns: 1fr; gap: 1rem; }
+    }
+
+    @media (max-width: 768px) {
+      body { font-size: 16px; }
+      nav { padding: 0 1.5rem; height: 68px; }
+
+      .nav-links {
+        display: none;
+        position: fixed;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: rgba(15, 14, 12, 0.98);
+        backdrop-filter: blur(20px);
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 2rem;
+        gap: 2rem;
+        z-index: 1000;
+      }
+
+      .nav-links.open { display: flex; }
+      .nav-links a { font-size: 1.15rem; letter-spacing: 0.1em; }
+      .nav-toggle { display: block; }
+
+      .nav-close {
+        position: absolute;
+        top: 1.5rem;
+        right: 1.5rem;
+        background: none;
+        border: none;
+        color: var(--fg);
+        font-size: 2rem;
+        cursor: pointer;
+        padding: 0.5rem;
+        line-height: 1;
+        font-family: var(--font-body);
+        display: block !important;
+      }
+
+      .fw-section > section,
+      .fw-section > .section-inner { padding: 3.5rem 1.5rem; }
+
+      section { padding: 3.5rem 1.5rem; }
+
+      .hero-content h1 { letter-spacing: 0.1em; }
+      .hero-tagline { font-size: 0.95rem; letter-spacing: 0.1em; }
+
+      .menu-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.3rem;
+      }
+
+      .menu-item .price {
+        margin-left: 0;
+        margin-top: 0.15rem;
+        font-size: 1.05rem;
+      }
+
+      .info-block, .info-card { padding: 1.75rem 1.5rem; }
+
+      .cta-button { padding: 0.9rem 2rem; font-size: 0.85rem; }
+
+      .photo-banner { height: 220px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav id="navbar">
+    <a href="#" class="nav-logo">Mioya</a>
+    <button class="nav-toggle" onclick="toggleNav()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-links" id="navLinks">
+      <button class="nav-close" onclick="toggleNav()" aria-label="Close">&times;</button>
+      <a href="#offnungszeiten" onclick="closeNav()">Öffnungszeiten</a>
+      <a href="#food" onclick="closeNav()">Food</a>
+      <a href="#dimsum" onclick="closeNav()">Dim Sum</a>
+      <a href="#hotpot" onclick="closeNav()">Hot Pot</a>
+      <a href="#wagyu" onclick="closeNav()">Wagyu</a>
+      <a href="#drinks" onclick="closeNav()">Drinks</a>
+      <a href="#kontakt" onclick="closeNav()">Kontakt</a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <div class="hero" id="hero">
+    <div class="hero-bg" id="heroBg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h1>Mioya</h1>
+      <p class="hero-tagline">Asiatische Küche mit Liebe zubereitet</p>
+      <a href="#offnungszeiten" class="cta-button">Jetzt reservieren</a>
+    </div>
+    <div class="scroll-hint">
+      <span>Scroll</span>
+      <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+  </div>
+
+  <!-- Öffnungszeiten — warm dark -->
+  <div class="fw-section section-warm" id="offnungszeiten">
+    <section style="padding-top:5rem; padding-bottom:5rem;">
+      <p class="section-label">Besuchen Sie uns</p>
+      <h2>Öffnungszeiten & Reservierungen</h2>
+
+      <div class="info-grid">
+        <div class="info-card">
+          <h3>Öffnungszeiten</h3>
+          <p><strong>Di – Fr</strong> &nbsp; 17 – 23 Uhr</p>
+          <p><strong>Sa – So</strong> &nbsp; 12 – 23 Uhr</p>
+          <p><strong>Montag</strong> &nbsp; Ruhetag</p>
+          <p class="note">Küche bis 22 Uhr</p>
+        </div>
+        <div class="info-card">
+          <h3>Reservierungen</h3>
+          <p>Nur telefonisch</p>
+          <p class="accent-val">+43 1 586 36 73</p>
+          <p class="note">Erreichbar ab 16 Uhr</p>
+          <p class="note">Bitte erneut versuchen, wenn die Leitung besetzt ist.</p>
+        </div>
+        <div class="info-card info-card-full">
+          <h3>Hinweise</h3>
+          <p>Maximale Tischbelegung: <span class="accent-val">6 Personen</span></p>
+          <p>Für Gruppen ab 7 Personen bieten wir ausschließlich Set Menu an.</p>
+          <p>Nur Barzahlung möglich — <em>Cash only</em></p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Food photo banner -->
+  <div class="photo-banner">
+    <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1400&h=400&fit=crop&q=80" alt="Asian cuisine" loading="lazy">
+    <div class="banner-overlay"></div>
+    <div class="banner-text">
+      <h3>Unsere Speisekarte</h3>
+      <span>Frisch zubereitet</span>
+    </div>
+  </div>
+
+  <!-- Food — dark base -->
+  <div class="fw-section section-dark" id="food">
+    <section>
+      <p class="section-label">Speisekarte</p>
+      <h2>Food</h2>
+
+      <div class="menu-category">
+        <h3>Suppen</h3>
+        <div class="menu-item">
+          <div>
+            <span class="name">CURRY-KOKOS-NUDELSUPPE</span>
+            <span class="description">Glasnudeln in leicht scharfer Suppe mit Limette und Koriander</span>
+          </div>
+          <span class="price">6,5</span>
+        </div>
+        <div class="menu-item">
+          <div><span class="name">… mit Hühnerfleisch</span></div>
+          <span class="price">7,5</span>
+        </div>
+        <div class="menu-item">
+          <div>
+            <span class="name">WAN TAN SUPPE</span>
+            <span class="description">Leichte Brühe mit Algen, Sesamöl, Jungzwiebel und Wan Tan</span>
+          </div>
+          <span class="price">6,9</span>
+        </div>
+      </div>
+
+      <div class="menu-category">
+        <h3>Salate & Kaltes</h3>
+        <div class="menu-item">
+          <div>
+            <span class="name">CHINESE WHITE KIMCHI</span>
+            <span class="description">Salat aus eingelegtem Gemüse</span>
+          </div>
+          <span class="price">6,5</span>
+        </div>
+        <div class="menu-item">
+          <div>
+            <span class="name">HUANG GUA SHA LA</span>
+            <span class="description">Frischer Gurkensalat mit Chiliöl und Sesamöl</span>
+          </div>
+          <span class="price">5,9</span>
+        </div>
+        <div class="menu-item">
+          <div>
+            <span class="name">MOGU SHA LA</span>
+            <span class="description">Salat von warmen getrüffelten Pilzen und Räuchertofu</span>
+          </div>
+          <span class="price">7,5</span>
+        </div>
+        <div class="menu-item">
+          <div>
+            <span class="name">LEN TOFU</span>
+            <span class="description">Kalter Seidentofu mit Belugalinsen und Roten Rüben</span>
+          </div>
+          <span class="price">7,5</span>
+        </div>
+        <div class="menu-item">
+          <div>
+            <span class="name">13 SPICES TOFU</span>
+            <span class="description">In Gewürzsud geschmorter Tofu, kalt serviert</span>
+          </div>
+          <span class="price">7,5</span>
+        </div>
+      </div>
+
+      <div class="menu-category">
+        <h3>Sonstiges</h3>
+        <div class="menu-item">
+          <div>
+            <span class="name">FEI BING</span>
+            <span class="description">Gebratene Flade aus Weizenmehl, serviert mit Knoblauchdip</span>
+          </div>
+          <span class="price">5,9</span>
+        </div>
+        <div class="menu-item">
+          <div>
+            <span class="name">MAO DOU</span>
+            <span class="description">Junge Sojabohnen in Schoten, mit einer Prise Meersalz</span>
+          </div>
+          <span class="price">5,9</span>
+        </div>
+        <div class="menu-item">
+          <div>
+            <span class="name">LIANG BAN XI MIAN</span>
+            <span class="description">Kalte Reisnudeln in Erdnusssauce, mit Chiliöl, Sesam, Koriander und Schnittlauch</span>
+          </div>
+          <span class="price">5,9</span>
+        </div>
+      </div>
+
+      <div class="menu-category">
+        <h3>Warm</h3>
+        <div class="menu-item">
+          <div>
+            <span class="name">DUN ZHUROU</span>
+            <span class="description">Zarte Scheiben vom geschmorten Schweinebauch</span>
+          </div>
+          <span class="price">7,9</span>
+        </div>
+        <div class="menu-item">
+          <div>
+            <span class="name">LA ZHI XIA</span>
+            <span class="description">Garnelen in scharfer Chili-Sauce</span>
+          </div>
+          <span class="price">8,5</span>
+        </div>
+        <div class="menu-item">
+          <div>
+            <span class="name">SPICY SALMON TARTAR</span>
+            <span class="description">Pikantes Tartar vom Bio-Lachs mit Limette, Chili und Jungzwiebel, serviert im knusprigen Reisblatt</span>
+          </div>
+          <span class="price">14,9</span>
+        </div>
+        <div class="menu-item">
+          <div>
+            <span class="name">BEEF TARTAR</span>
+            <span class="description">Fein gewürzt mit Sojasauce, Limette, Koriander, Jungzwiebel, Knoblauch und Chiliöl, serviert mit Yutiao</span>
+          </div>
+          <span class="price">14,9</span>
+        </div>
+        <div class="menu-item">
+          <div>
+            <span class="name">ZHEN PAI GU RIBS</span>
+            <span class="description">Geschmorte Rippchen mit einer Sauce aus fermentierten Sojabohnen</span>
+          </div>
+          <span class="price">10,9</span>
+        </div>
+        <div class="menu-item">
+          <div>
+            <span class="name">MAPO TOFU</span>
+            <span class="description">Tofu und Faschiertes vom Rind mit Chili und Szechuanpfeffer, im Steintopf geschmort und serviert</span>
+          </div>
+          <span class="price">14,9</span>
+        </div>
+        <div class="menu-item">
+          <div>
+            <span class="name">MAMAS FRIED CHICKEN</span>
+            <span class="description">Knusprig gebackenes Hendl mit geröstetem Sesam, serviert mit Knoblauch-Limetten-Mayo</span>
+          </div>
+          <span class="price">9,9</span>
+        </div>
+        <div class="menu-item">
+          <div>
+            <span class="name">SHAGUO CHICKEN</span>
+            <span class="description">Zartes Huhn mit Pfefferoni, Zwiebel und Austernsauce, im Steintopf geschmort und serviert</span>
+          </div>
+          <span class="price">16,9</span>
+        </div>
+        <div class="menu-item">
+          <div>
+            <span class="name">ZHENG YU</span>
+            <span class="description">Ganzer Wolfsbarsch im Ofen gegart mit Ingwer, Sojasauce, Knoblauch, Thymian, Limette, Koriander und Chili</span>
+          </div>
+          <span class="price">23,9</span>
+        </div>
+        <div class="menu-item">
+          <div>
+            <span class="name">HEI MI FAN</span>
+            <span class="description">Jasminreis mit schwarzem Reis</span>
+          </div>
+          <span class="price">3,5</span>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Dim Sum photo banner -->
+  <div class="photo-banner">
+    <img src="https://images.unsplash.com/photo-1563245372-f21724e3856d?w=1400&h=400&fit=crop&q=80" alt="Dim Sum" loading="lazy">
+    <div class="banner-overlay"></div>
+    <div class="banner-text">
+      <h3>Dim Sum</h3>
+      <span>Gedämpft, gebraten, gefüllt</span>
+    </div>
+  </div>
+
+  <!-- Dim Sum — light section -->
+  <div class="fw-section section-light" id="dimsum">
+    <section>
+      <p class="section-label">Teigtaschen</p>
+      <h2>Dim Sum</h2>
+
+      <div class="menu-item">
+        <div>
+          <span class="name">JIU CAI JIAO</span>
+          <span class="description">Gedämpfte Teigtaschen aus Reisteig mit Garnelen und Bärlauch gefüllt</span>
+        </div>
+        <span class="price">6,5</span>
+      </div>
+      <div class="menu-item">
+        <div>
+          <span class="name">XIA JIAO</span>
+          <span class="description">Gedämpfte Teigtaschen aus Reisteig mit Garnelen gefüllt</span>
+        </div>
+        <span class="price">6,5</span>
+      </div>
+      <div class="menu-item">
+        <div>
+          <span class="name">HONG YOU CAO SHOU</span>
+          <span class="description">Wan Tan mit Schweinefleisch und Garnelen gefüllt in Erdnuss-Sauce mit Koriander und Chiliöl</span>
+        </div>
+        <span class="price">6,9</span>
+      </div>
+      <div class="menu-item">
+        <div>
+          <span class="name">ZHA HUN DUNG</span>
+          <span class="description">Frittierte Wan Tan mit Schweinefleisch und Garnelen gefüllt</span>
+        </div>
+        <span class="price">7,5</span>
+      </div>
+      <div class="menu-item">
+        <div>
+          <span class="name">JIAO ZI VEGGIE</span>
+          <span class="description">Gebratene Teigtaschen mit Tofu-Gemüse-Fülle</span>
+        </div>
+        <span class="price">6,9</span>
+      </div>
+      <div class="menu-item">
+        <div>
+          <span class="name">JIAO ZI BEEF</span>
+          <span class="description">Gebratene Teigtaschen gefüllt mit Rostbraten, Kurkuma und schwarzem Pfeffer</span>
+        </div>
+        <span class="price">7,3</span>
+      </div>
+      <div class="menu-item">
+        <div>
+          <span class="name">MIX DIM SUM</span>
+          <span class="description">Variation von im Wok gebratenen oder im Korb gedämpften Teigtaschen</span>
+        </div>
+        <span class="price">16,9</span>
+      </div>
+      <div class="menu-item">
+        <div>
+          <span class="name">XIAO LONG BAO</span>
+          <span class="description">Gedämpfte Teigtaschen mit Schweinefleisch und Suppe gefüllt</span>
+        </div>
+        <span class="price">15,9</span>
+      </div>
+    </section>
+  </div>
+
+  <!-- Hot Pot photo banner -->
+  <div class="photo-banner">
+    <img src="https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=1400&h=400&fit=crop&q=80" alt="Hot Pot" loading="lazy">
+    <div class="banner-overlay"></div>
+    <div class="banner-text">
+      <h3>Hot Pot</h3>
+      <span>Am Tisch gekocht</span>
+    </div>
+  </div>
+
+  <!-- Hot Pot — warm dark -->
+  <div class="fw-section section-accent" id="hotpot">
+    <section>
+      <p class="section-label">Am Tisch gekocht</p>
+      <h2>Hot Pot</h2>
+
+      <div class="menu-item">
+        <div>
+          <span class="name">HOT POT SET VEGAN</span>
+          <span class="description">Saisonales Gemüse, Tofu, Tofublätter, Räuchertofu, glutenfreie Nudeln</span>
+        </div>
+        <span class="price">28,5</span>
+      </div>
+      <div class="menu-item">
+        <div>
+          <span class="name">HOT POT SET MIT FLEISCH</span>
+          <span class="description">Saisonales Gemüse, Tofu, glutenfreie Nudeln, wahlweise Rostbraten oder Hühnerbrust</span>
+        </div>
+        <span class="price">29,9</span>
+      </div>
+      <div class="menu-item">
+        <div>
+          <span class="name">HOT POT SET MIT MEERESFRÜCHTEN</span>
+          <span class="description">Saisonales Gemüse, Tofu, glutenfreie Nudeln, Meeresfrüchte, Fischfilet</span>
+        </div>
+        <span class="price">31,-</span>
+      </div>
+
+      <div class="info-block" style="margin-top: 2.5rem;">
+        <h3>Suppen zur Auswahl</h3>
+        <p>Kräftige Rinderbrühe</p>
+        <p>Leichte Tomatensuppe mit Koriander</p>
+        <p>Curry-Kokos-Suppe</p>
+        <p>Scharfe Chilisuppe</p>
+        <p class="menu-note">Extras auf Anfrage / nach Verfügbarkeit</p>
+      </div>
+    </section>
+  </div>
+
+  <!-- Hot Pot Set Menu — deep dark -->
+  <div class="fw-section section-deep" id="hotpot-setmenu">
+    <section>
+      <p class="section-label">Für Gruppen</p>
+      <h2>Hot Pot Set Menu</h2>
+      <p class="menu-note" style="font-size: 1.05rem; color: var(--fg-dim);">2-GANG-MENÜ für Gruppen ab 7 Personen — <span style="color: var(--accent-light); font-family: var(--font-display); font-size: 1.3rem;">46,- p.P.</span></p>
+
+      <div class="info-block">
+        <h3>1. Starters</h3>
+        <p>Variation von kalten und warmen kleinen Speisen und Dim Sum</p>
+      </div>
+
+      <div class="info-block">
+        <h3>2. Hot Pot</h3>
+        <p><strong>HOT POT SET VEGAN</strong> — Saisonales Gemüse, Tofu, Tofublätter, Räuchertofu, glutenfreie Nudeln</p>
+        <p><strong>HOT POT SET MIT FLEISCH</strong> — Saisonales Gemüse, Tofu, glutenfreie Nudeln, wahlweise Rostbraten oder Hühnerbrust</p>
+        <p><strong>HOT POT SET MIT MEERESFRÜCHTEN</strong> — Saisonales Gemüse, Tofu, glutenfreie Nudeln, Meeresfrüchte, Fischfilet</p>
+      </div>
+
+      <div class="info-block">
+        <h3>Suppen zur Auswahl</h3>
+        <p>Kräftige Rinderbrühe · Leichte Tomatensuppe mit Koriander · Curry-Kokos-Suppe · Scharfe Chilisuppe</p>
+      </div>
+
+      <p class="menu-note" style="margin-top: 1.5rem;">Der Menüpreis beinhaltet Vorspeisen und ein Hot-Pot-Set (Suppe und Zutatenset). Getränke sind nicht inkludiert. Reservierung und Bestätigung erfolgen per e-Mail.</p>
+    </section>
+  </div>
+
+  <!-- Wagyu photo banner -->
+  <div class="photo-banner">
+    <img src="https://images.unsplash.com/photo-1546833998-877b37c2e5c6?w=1400&h=400&fit=crop&q=80" alt="Wagyu beef" loading="lazy">
+    <div class="banner-overlay"></div>
+    <div class="banner-text">
+      <h3>Wagyu Special</h3>
+      <span>Japan A3 grade</span>
+    </div>
+  </div>
+
+  <!-- Wagyu — light alt -->
+  <div class="fw-section section-light-alt" id="wagyu">
+    <section>
+      <p class="section-label">Exklusiv</p>
+      <h2>Wagyu Special</h2>
+
+      <div class="wagyu-header">
+        <p class="menu-note" style="color: var(--fg-light-dim);">3-GANG-MENÜ ab 2 Personen · gesamt 250g Japan Wagyu Steak A3 grade + Sake</p>
+        <p class="price-tag">115,- p.P.</p>
+      </div>
+
+      <div class="wagyu-course">
+        <p class="course-num">1</p>
+        <p class="name">WAGYU TARTAR</p>
+        <p class="description">Handgeschnittenes Tartar vom Wagyu, fein abgeschmeckt mit Sojasauce, Limette, Koriander, Knoblauch und Chili</p>
+      </div>
+
+      <div class="wagyu-course">
+        <p class="course-num">2</p>
+        <p class="name">SURF & TURF YAKITORI</p>
+        <p class="description">Wagyu Steak und Black Tiger Garnelen am Holzspieß, serviert mit Taropüree</p>
+      </div>
+
+      <div class="wagyu-course">
+        <p class="course-num">3</p>
+        <p class="name">WAGYU SUKIYAKI HOT POT</p>
+        <p class="description">Feine Scheiben vom Wagyu, saisonales Gemüse, Reisnudeln, am Tisch gekocht in klarer Rindssuppe mit Ponzu-Dipsauce</p>
+      </div>
+
+      <div class="info-block" style="margin-top: 2rem;">
+        <p>Unser Wagyu-Special ist auf Vorbestellung erhältlich.</p>
+        <p>Bitte beachten Sie die besonderen Reservierungsbedingungen:</p>
+        <p class="highlight">Anzahlung von EUR 50,- pro Menü.</p>
+        <p>Reservierung und Bestätigung erfolgen per e-Mail.</p>
+      </div>
+    </section>
+  </div>
+
+  <!-- Drinks photo banner -->
+  <div class="photo-banner">
+    <img src="https://images.unsplash.com/photo-1551538827-9c037cb4f32a?w=1400&h=400&fit=crop&q=80" alt="Cocktails" loading="lazy">
+    <div class="banner-overlay"></div>
+    <div class="banner-text">
+      <h3>Drinks</h3>
+      <span>Cocktails & Spirituosen</span>
+    </div>
+  </div>
+
+  <!-- Drinks — dark base -->
+  <div class="fw-section section-dark" id="drinks">
+    <section>
+      <p class="section-label">Bar</p>
+      <h2>Drinks</h2>
+
+      <div class="menu-item">
+        <div>
+          <span class="name">UNDONE SPRITZ <em style="color:var(--muted); font-size:0.88rem;">(alkoholfrei)</em></span>
+          <span class="description">Undone No.7 Not Orange Bitter, Mango, Ginger Beer</span>
+        </div>
+        <span class="price">7,9</span>
+      </div>
+      <div class="menu-item">
+        <div>
+          <span class="name">SISSI BERRY</span>
+          <span class="description">Sissi Wiener Wermut, Schweppes, Wildberry</span>
+        </div>
+        <span class="price">7,9</span>
+      </div>
+      <div class="menu-item">
+        <div>
+          <span class="name">PINK SPRITZ</span>
+          <span class="description">Metaxa 7 Stars, Peachtree, Thomas Henry Pink Grapefruit, Schlumberger Sparkling</span>
+        </div>
+        <span class="price">8,9</span>
+      </div>
+      <div class="menu-item">
+        <div>
+          <span class="name">YANG MEI SPRITZ</span>
+          <span class="description">Sissi Wiener Wermut, Aperitivo Nonino, Yangmei, Prosecco</span>
+        </div>
+        <span class="price">8,9</span>
+      </div>
+      <div class="menu-item">
+        <div>
+          <span class="name">LYCHEE SPRITZ</span>
+          <span class="description">Aperitivo Nonino, Select, Lychee, Yuzu, Schweppes, White Peach</span>
+        </div>
+        <span class="price">8,9</span>
+      </div>
+      <div class="menu-item">
+        <div>
+          <span class="name">LAVENDER SPRITZ</span>
+          <span class="description">Broker's Gin, Yuzu, Lav'a Belle, Thomas Henry Cherry Blossom</span>
+        </div>
+        <span class="price">8,9</span>
+      </div>
+      <div class="menu-item">
+        <div>
+          <span class="name">OTTO CELLO SPRITZ</span>
+          <span class="description">Broker's Gin, Otto Cello, Fritz-Spritz Bio Rharbarberschorle</span>
+        </div>
+        <span class="price">10,-</span>
+      </div>
+      <div class="menu-item">
+        <div>
+          <span class="name">MONTENEGRO TONIC</span>
+          <span class="description">Amaro Montenegro, Thomas Henry Tonic</span>
+        </div>
+        <span class="price">10,-</span>
+      </div>
+      <div class="menu-item">
+        <div>
+          <span class="name">HORSE'S NECK</span>
+          <span class="description">Buffalo Trace Bourbon, Angostura Bitters, Thomas Henry Ginger Ale</span>
+        </div>
+        <span class="price">11,-</span>
+      </div>
+      <div class="menu-item">
+        <div>
+          <span class="name">TROPICAL MULE</span>
+          <span class="description">Stolichnaya Vodka, Mint, Maracuja, Lime, Ginger Beer</span>
+        </div>
+        <span class="price">13,-</span>
+      </div>
+      <div class="menu-item">
+        <div>
+          <span class="name">RUBY NEGRONI</span>
+          <span class="description">Johnny Walker Ruby, Franz Wermut, Campari, Creme de Mure</span>
+        </div>
+        <span class="price">13,-</span>
+      </div>
+      <div class="menu-item">
+        <div>
+          <span class="name">BARE NECESSITIES</span>
+          <span class="description">Monkey Shoulder Whiskey, Pandan, Kokos, Banane, Yuzu, Guayabana</span>
+        </div>
+        <span class="price">14,-</span>
+      </div>
+    </section>
+  </div>
+
+  <!-- Kontakt — warm dark -->
+  <div class="fw-section section-warm" id="kontakt">
+    <section>
+      <p class="section-label">Wir freuen uns auf Sie</p>
+      <h2>Restaurant & Bar</h2>
+
+      <div class="contact-grid">
+        <div class="contact-item">
+          <p class="label">Telefon</p>
+          <p class="value">+43 1 586 36 73</p>
+        </div>
+        <div class="contact-item">
+          <p class="label">Adresse</p>
+          <p class="value">Gumpendorfer Straße 29<br>1060 Wien</p>
+        </div>
+        <div class="contact-item">
+          <p class="label">E-Mail</p>
+          <p class="value"><a href="mailto:hello@mioya.at">hello@mioya.at</a></p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <footer>
+    <p class="footer-brand">Mioya</p>
+    <p class="footer-message">Wir freuen uns auf Ihren Besuch!</p>
+    <div class="footer-details">
+      <p>Alle Preise inkl. Mehrwertsteuer. Irrtümer und Preisänderungen vorbehalten.</p>
+      <p>Ein Betrieb der Mioya GmbH</p>
+      <p>Firmensitz und Rechnungsanschrift: Gumpendorfer Straße 29, 1060 Wien</p>
+    </div>
+    <div class="legal-links">
+      <a href="cookie-policy.html">Cookie-Richtlinie</a>
+      <a href="#">Impressum</a>
+      <a href="privacy-policy.html">Datenschutz</a>
+    </div>
+  </footer>
+
+  <script>
+    const navbar = document.getElementById('navbar');
+    const heroBg = document.getElementById('heroBg');
+
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 80);
+    }, { passive: true });
+
+    window.addEventListener('scroll', () => {
+      const y = window.scrollY;
+      if (y < window.innerHeight) {
+        heroBg.style.transform = `scale(1.05) translateY(${y * 0.25}px)`;
+      }
+    }, { passive: true });
+
+    function toggleNav() {
+      document.getElementById('navLinks').classList.toggle('open');
+    }
+
+    function closeNav() {
+      document.getElementById('navLinks').classList.remove('open');
+    }
+
+    // Custom smooth scroll — slower and smoother than native scroll-behavior
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (!target) return;
+        closeNav();
+        const headerOffset = 80;
+        const start = window.scrollY;
+        const end = target.getBoundingClientRect().top + start - headerOffset;
+        const distance = end - start;
+        const duration = Math.min(1800, Math.max(800, Math.abs(distance) * 1.2));
+        let startTime = null;
+
+        function easeInOutCubic(t) {
+          return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+        }
+
+        function animate(timestamp) {
+          if (!startTime) startTime = timestamp;
+          const elapsed = timestamp - startTime;
+          const progress = Math.min(elapsed / duration, 1);
+          const eased = easeInOutCubic(progress);
+          window.scrollTo(0, start + distance * eased);
+          if (progress < 1) requestAnimationFrame(animate);
+        }
+
+        requestAnimationFrame(animate);
+      });
+    });
+  </script>
+
+</body>
+</html>

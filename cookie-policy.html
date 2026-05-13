@@ -1,0 +1,325 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cookie-Richtlinie — Mioya</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0f0e0c;
+      --surface: #1a1816;
+      --surface-warm: #1c1914;
+      --fg: #ede7db;
+      --fg-dim: #c4baa8;
+      --muted: #8a8070;
+      --border: #2e2a24;
+      --accent: #c8956c;
+      --accent-light: #d4a882;
+      --accent-dark: #a67548;
+      --font-display: 'Playfair Display', Georgia, serif;
+      --font-body: 'Lato', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--fg);
+      font-size: 17px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      padding: 0 2.5rem;
+      height: 76px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(15, 14, 12, 0.94);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: var(--font-display);
+      font-size: 1.85rem;
+      font-weight: 400;
+      color: var(--fg);
+      text-decoration: none;
+      letter-spacing: 0.1em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.8rem;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: var(--fg-dim);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 400;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      transition: color 0.25s;
+    }
+
+    .nav-links a:hover { color: var(--accent-light); }
+
+    .nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: 8px; z-index: 1001; }
+    .nav-close { display: none; }
+
+    .nav-toggle span {
+      display: block;
+      width: 26px;
+      height: 2px;
+      background: var(--fg);
+      margin: 6px 0;
+      transition: all 0.3s;
+    }
+
+    .page-header {
+      padding-top: 120px;
+      padding-bottom: 2rem;
+      max-width: 880px;
+      margin: 0 auto;
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+
+    .page-header h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.2rem, 5vw, 3rem);
+      font-weight: 400;
+      color: var(--fg);
+      margin-bottom: 0.5rem;
+    }
+
+    .page-header .updated {
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    .content {
+      max-width: 880px;
+      margin: 0 auto;
+      padding: 3rem 2rem 5rem;
+    }
+
+    .content h2 {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 400;
+      color: var(--accent-light);
+      margin: 2.5rem 0 1rem;
+      font-style: italic;
+    }
+
+    .content p {
+      margin-bottom: 1rem;
+      color: var(--fg-dim);
+      line-height: 1.8;
+    }
+
+    .content ul {
+      margin: 0.75rem 0 1.25rem 1.5rem;
+      color: var(--fg-dim);
+    }
+
+    .content li {
+      margin-bottom: 0.5rem;
+      line-height: 1.7;
+    }
+
+    .content strong {
+      color: var(--fg);
+    }
+
+    .content a {
+      color: var(--accent-light);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .content a:hover { color: var(--accent); }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 3rem 2rem;
+      text-align: center;
+      background: var(--surface);
+    }
+
+    footer p {
+      font-size: 0.88rem;
+      color: var(--muted);
+      margin-bottom: 0.45rem;
+    }
+
+    .legal-links {
+      margin-top: 1.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .legal-links a {
+      color: var(--muted);
+      font-size: 0.78rem;
+      margin: 0 1.2rem;
+      text-decoration: none;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    .legal-links a:hover { color: var(--fg-dim); }
+
+    @media (max-width: 768px) {
+      body { font-size: 16px; }
+      nav { padding: 0 1.5rem; height: 68px; }
+
+      .nav-links {
+        display: none;
+        position: fixed;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: rgba(15, 14, 12, 0.98);
+        backdrop-filter: blur(20px);
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 2rem;
+        gap: 2rem;
+        z-index: 1000;
+      }
+
+      .nav-links.open { display: flex; }
+      .nav-links a { font-size: 1.15rem; letter-spacing: 0.1em; }
+      .nav-toggle { display: block; }
+
+      .nav-close {
+        position: absolute;
+        top: 1.5rem;
+        right: 1.5rem;
+        background: none;
+        border: none;
+        color: var(--fg);
+        font-size: 2rem;
+        cursor: pointer;
+        padding: 0.5rem;
+        line-height: 1;
+        font-family: var(--font-body);
+        display: block !important;
+      }
+
+      .page-header { padding-top: 100px; }
+      .content { padding: 2rem 1.5rem 4rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-logo">Mioya</a>
+    <button class="nav-toggle" onclick="toggleNav()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-links" id="navLinks">
+      <button class="nav-close" onclick="toggleNav()" aria-label="Close">&times;</button>
+      <a href="index.html" onclick="closeNav()">Home</a>
+      <a href="index.html#kontakt" onclick="closeNav()">Kontakt</a>
+    </div>
+  </nav>
+
+  <div class="page-header">
+    <h1>Cookie-Richtlinie</h1>
+    <p class="updated">Zuletzt aktualisiert: Mai 2025</p>
+  </div>
+
+  <div class="content">
+    <h2>1. Was sind Cookies?</h2>
+    <p>Cookies sind kleine Textdateien, die von Ihrem Webbrowser auf Ihrem Endgerät (Computer, Tablet, Smartphone) gespeichert werden, wenn Sie unsere Website besuchen. Sie helfen uns dabei, die Website funktionsfähig zu machen, sie sicherer und nutzerfreundlicher zu gestalten.</p>
+
+    <h2>2. Welche Cookies verwenden wir?</h2>
+    <p>Wir verwenden auf unserer Website folgende Arten von Cookies:</p>
+
+    <p><strong>Notwendige Cookies (Essential Cookies)</strong></p>
+    <p>Diese Cookies sind für den Betrieb der Website unbedingt erforderlich. Sie ermöglichen grundlegende Funktionen wie die Navigation und den Zugang zu geschützten Bereichen der Website. Ohne diese Cookies kann die Website nicht ordnungsgemäß funktionieren.</p>
+    <ul>
+      <li><strong>Session-Cookie:</strong> Speichert Ihre aktuellen Sitzungsdaten für die Dauer Ihres Besuchs.</li>
+    </ul>
+
+    <p><strong>Funktionalitäts-Cookies</strong></p>
+    <p>Diese Cookies ermöglichen es, bestimmte Funktionen der Website bereitzustellen und Informationen zu speichern, die Sie bereits angegeben haben (z. B. Ihre Spracheinstellungen).</p>
+
+    <p><strong>Analyse-Cookies</strong></p>
+    <p>Diese Cookies helfen uns zu verstehen, wie Besucher mit unserer Website interagieren, indem Informationen anonym gesammelt werden. Wir verwenden diese Informationen, um unsere Website zu verbessern.</p>
+    <ul>
+      <li><strong>Google Analytics:</strong> Ermöglicht uns die Analyse der Nutzung unserer Website. Die erfassten Daten werden anonymisiert und aggregiert ausgewertet.</li>
+    </ul>
+
+    <h2>3. Drittanbieter-Cookies</h2>
+    <p>Auf unserer Website können auch Cookies von Drittanbietern gesetzt werden. Diese stammen von externen Diensten, die wir zur Verbesserung unserer Website nutzen:</p>
+    <ul>
+      <li><strong>Google Fonts:</strong> Zur Bereitstellung von Webschriftarten. Beim Laden der Schriftarten kann Google Ihre IP-Adresse erfassen.</li>
+      <li><strong>Google Maps:</strong> Falls auf unserer Website eine Karteneinbindung verwendet wird, können dadurch Cookies von Google gesetzt werden.</li>
+    </ul>
+
+    <h2>4. Wie lange werden Cookies gespeichert?</h2>
+    <p>Die Speicherdauer der Cookies variiert je nach Art:</p>
+    <ul>
+      <li><strong>Session-Cookies:</strong> Werden automatisch gelöscht, wenn Sie Ihren Browser schließen.</li>
+      <li><strong>Persistente Cookies:</strong> Bleiben für einen bestimmten Zeitraum auf Ihrem Gerät gespeichert (in der Regel zwischen einem Monat und zwei Jahren).</li>
+    </ul>
+
+    <h2>5. Wie können Sie Cookies verwalten oder löschen?</h2>
+    <p>Sie haben das Recht zu entscheiden, ob Sie Cookies akzeptieren oder ablehnen möchten. Sie können Ihre Cookie-Einstellungen jederzeit in den Einstellungen Ihres Browsers ändern oder aktualisieren.</p>
+    <p>Die meisten Browser sind so eingestellt, dass sie automatisch Cookies akzeptieren. Sie können Ihren Browser jedoch so konfigurieren, dass er Cookies blockiert oder Sie benachrichtigt, bevor ein Cookie gespeichert wird. Bitte beachten Sie, dass das Deaktivieren von Cookies die Funktionalität unserer Website einschränken kann.</p>
+    <p>Hier finden Sie Anleitungen zur Verwaltung von Cookies in gängigen Browsern:</p>
+    <ul>
+      <li><a href="https://support.google.com/chrome/answer/95647" target="_blank" rel="noopener">Google Chrome</a></li>
+      <li><a href="https://support.mozilla.org/de/kb/cookies-und-website-daten-loeschen" target="_blank" rel="noopener">Mozilla Firefox</a></li>
+      <li><a href="https://support.apple.com/de-de/guide/safari/sfri11471/mac" target="_blank" rel="noopener">Apple Safari</a></li>
+      <li><a href="https://support.microsoft.com/de-de/microsoft-edge/cookies-in-microsoft-edge-16895ab7-574e-460e-b6d6-adc496b46dc0" target="_blank" rel="noopener">Microsoft Edge</a></li>
+    </ul>
+
+    <h2>6. Ihre Rechte</h2>
+    <p>Gemäß der Datenschutz-Grundverordnung (DSGVO) haben Sie das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Datenübertragbarkeit sowie das Recht auf Widerspruch bezüglich der Verarbeitung Ihrer personenbezogenen Daten.</p>
+    <p>Wenn Sie Ihre Rechte ausüben möchten oder Fragen zu dieser Cookie-Richtlinie haben, kontaktieren Sie uns bitte unter:</p>
+    <p><strong>Mioya GmbH</strong><br>
+    Gumpendorfer Straße 29<br>
+    1060 Wien<br>
+    E-Mail: <a href="mailto:hello@mioya.at">hello@mioya.at</a></p>
+
+    <h2>7. Änderungen dieser Cookie-Richtlinie</h2>
+    <p>Wir behalten uns das Recht vor, diese Cookie-Richtlinie jederzeit zu ändern. Die aktuellste Version ist stets auf unserer Website verfügbar. Wir empfehlen Ihnen, diese Richtlinie regelmäßig zu überprüfen.</p>
+  </div>
+
+  <footer>
+    <p>Ein Betrieb der Mioya GmbH</p>
+    <p>Gumpendorfer Straße 29, 1060 Wien</p>
+    <div class="legal-links">
+      <a href="cookie-policy.html">Cookie-Richtlinie</a>
+      <a href="#">Impressum</a>
+      <a href="privacy-policy.html">Datenschutz</a>
+    </div>
+  </footer>
+
+  <script>
+    function toggleNav() {
+      document.getElementById('navLinks').classList.toggle('open');
+    }
+    function closeNav() {
+      document.getElementById('navLinks').classList.remove('open');
+    }
+  </script>
+</body>
+</html>
